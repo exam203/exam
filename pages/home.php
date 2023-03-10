@@ -25,22 +25,6 @@ if ($result->num_rows > 0) {
     echo $username;
 }
 
-//get warning for location from weather table
-$sql = "SELECT * FROM weather WHERE location = '$location'";
-$result = $conn->query($sql);
-if ($result->num_rows > 0) {
-    // output data of each row
-    while($row = $result->fetch_assoc()) {
-        $weather_warning = $row["warning"];
-        $high = $row["high"];
-        $low = $row["low"];
-        if ($weather_warning == ""){
-            echo "No warnings for your location";
-        }
-    }
-} else {
-    echo "0 results";
-}
 
 $alerts = false;
 
@@ -58,6 +42,51 @@ $wind_kph = $data->current->wind_kph;
 $wind_dir = $data->current->wind_dir;
 $condition = $data->current->condition->text;
 $icon_url = $data->current->condition->icon;
+
+// User's location (you can replace this with your own location)
+$location2 = "London";
+
+// API endpoint and parameters
+$url = "http://datapoint.metoffice.gov.uk/public/data/val/wxfcs/all/json/pollenforecast/UK?res=3hourly&key=31819b16-1164-4f3b-9b16-2e9f0cb292ea";
+
+// Make a request to the API
+$curl = curl_init();
+curl_setopt_array($curl, [
+    CURLOPT_RETURNTRANSFER => 1,
+    CURLOPT_URL => $url,
+    CURLOPT_HTTPHEADER => [
+        "Content-Type: application/json",
+        "Accept: application/json"
+    ]
+]);
+$response = curl_exec($curl);
+
+// Check for errors
+if ($response === false) {
+    echo "Error: " . curl_error($curl);
+    exit();
+}
+
+// Parse the API response
+$data2 = json_decode($response, true);
+
+if ($data2 != null){
+  $locations = $data2["Locations"]["Location"];
+  $pollenLevel = null;
+
+  foreach ($locations as $loc) {
+      if (strtolower($loc["name"]) === strtolower($location2)) {
+          $pollenLevel = $loc["Period"][0]["Rep"][0]["$"];
+          break;
+      }
+  }
+
+}
+else {
+  $pollenLevel = null;
+}
+
+
 ?>
 
 <!DOCTYPE html>
@@ -71,31 +100,21 @@ $icon_url = $data->current->condition->icon;
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Dashboard</title>
 </head>
-<nav class="navbar navbar-expand-lg navbar-light bg-light" id="nav-menu">
-  <div class="container-fluid">
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor03" aria-controls="navbarColor03" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarColor03">
-      <ul class="navbar-nav me-auto">
-        <li class="nav-item">
-          <a class="nav-link active" href="home.php">Dashboard
-            <span class="visually-hidden">(current)</span>
-          </a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="../pages/weather.php">Weather</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">Profile</a>
-        </li>
-      </ul>
-      
-    </div>
-  </div>
+<nav class="navbar navbar-light bg-light justify-content-center" id="nav-menu">
+<ul class="nav justify-content-center" >
+  <li class="nav-item" style="padding-left: 5vw; padding-right: 5vw;">
+    <a class="nav-link active"  href="../pages/home.php"><img width="35vw" src="../images/tmp_icon.png"></a>
+  </li>
+  <li class="nav-item" style="padding-left: 5vw; padding-right: 5vw;">
+    <a class="nav-link" href="../pages/weather.php"><img width="35vw" src="../images/tmp_icon.png"></a>
+  </li>
+  <li class="nav-item" style="padding-left: 5vw; padding-right: 5vw;">
+    <a class="nav-link" href="../pages/profile.php"><img width="35vw" src="../images/tmp_icon.png"></a>
+  </li>
+</ul>
+  
 </nav>
 <body>
-<div id="output" style="font-size: 48px;">fgfg</div>
 
 <div class="container">
   <div class="prof" style="padding: 5px">
@@ -115,7 +134,7 @@ $icon_url = $data->current->condition->icon;
   <div class="wid1" style="padding: 5px">
     <span class="badge bg-danger" id="shadow" style=" width: 100%; height: 100%; border-radius: 30px;">
     <?php
-    echo "<p style='font-size: 5vw;'>";
+    echo "<p style='font-size: 3.5vw;'>";
     if ($wind_kph >= 93){
       echo "High winds<br>";
       $alerts = TRUE;
@@ -140,9 +159,22 @@ $icon_url = $data->current->condition->icon;
       echo "Low humidity<br>";
       $alerts = TRUE;
     }
-    if ($alerts != TRUE){
-      echo "No alerts";
+    //check if pollen in allergen list
+    if (str_contains(strtolower($allergens), "pollen") or str_contains(strtolower($allergens), "hay fever") or str_contains(strtolower($allergens), "asthma")){
+      // Inform the user about the pollen level
+      if ($pollenLevel !== null && isset($pollenLevel[0]) && $pollenLevel[0] >= 7) {
+        echo "High pollen levels! <br>";
+      } else {
+        echo "Pollen levels normal <br>";
+      }
+
+      
     }
+    if ($alerts != TRUE){
+        echo "No alerts <br>";
+      }
+
+    
 
 
     ?>
@@ -154,11 +186,12 @@ $icon_url = $data->current->condition->icon;
   <div class="wid2" style="padding: 5px">
     <span class="badge bg-info" id="shadow" style=" width: 100%; height: 100%; border-radius: 30px;">
     <div class="weatherconth">
+      <div>
         <?php
         if ($data) {
           
           
-          echo '<h1>Current weather in ' . $city . '</h1>';
+          echo '<h1 style="font-size: 3.5vw;">Current weather in ' . $city . '</h1>';
           echo '<p>Temperature: ' . $temp_c . '°C / ' . $temp_f . '°F</p>';
           echo '<p>Humidity: ' . $humidity . '%</p>';
           echo '<p>Wind: ' . $wind_kph . ' km/h ' . $wind_dir . '</p>';
@@ -168,8 +201,13 @@ $icon_url = $data->current->condition->icon;
           echo 'Error retrieving weather data';
       }
       ?>
+      </div>
+      <div>
+      <a href="../pages/advice.php?advice=weather" class="btn btn-warning" style="float: left; font-size: 1.5vw;">Advice</a>
+
+      </div>
     </div>
-    <div class="weathercontp" style="padding-top: 2px; font-size: 3.5vw;">
+    <div class="weathercontp" style="padding-top: 0; font-size: 3.5vw;">
     <?php
         if ($data) {
           echo '<h1 style="font-size: 10vw;">' . $city . '<img src="' . $icon_url . '"style="width: 10vw; height: 10vw;" alt="' . $condition . '"> </h1> ';
@@ -188,6 +226,9 @@ $icon_url = $data->current->condition->icon;
   <div class="wid3" style="padding: 5px">
     <span class="badge bg-secondary" id="shadow" style=" width: 100%; height: 100%; border-radius: 30px;">Widget 3</span>
   </div>
+</div>
+<div class="weathercontp">
+<a href="../pages/advice.php?advice=weather" class="btn btn-warning" style="margin: 25px; float: left; font-size: 4vw;">Advice</a>';
 </div>
 </body>
 </html>
