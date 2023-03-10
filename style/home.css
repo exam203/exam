@@ -1,0 +1,117 @@
+#shadow{
+  -webkit-box-shadow: inset 10px 10px 58px -15px rgba(0,0,0,1);
+-moz-box-shadow: inset 10px 10px 58px -15px rgba(0,0,0,1);
+box-shadow: inset 10px 10px 58px -15px rgba(0,0,0,1);
+}
+
+
+@media screen and (max-width: 410px) { 
+  body{
+    padding-top: 5px;
+    padding-bottom: 35px;
+    background-color: #1d1d1d !important;
+  }
+  .weatherconth{
+    display: none;
+  }
+  .weatherfont{
+    font-size: 3vw;
+  }
+
+  #nav-menu {
+    position: fixed; 
+    bottom: 0; 
+    width: 100%;
+  }
+ 
+  .container {  
+    display: grid;
+    grid-template-columns: 50% 50%;
+    grid-template-rows: 35% 25% 25%;
+    gap: 0px 0px;
+    grid-auto-flow: row;
+    grid-template-areas:
+      "prof prof"
+      "wid1 wid3"
+      "wid2 wid3";
+    
+  }
+
+  .prof { grid-area: prof; }
+
+  .wid1 { grid-area: wid1; }
+
+  .wid2 { grid-area: wid2; }
+
+  .wid3 { grid-area: wid3; }
+
+
+  html, body , .container {
+    height: 100%;
+    margin: 0;
+    text-align: center;
+  }
+
+
+}
+
+@media screen and (min-width: 411px) {
+
+  body{
+    padding : 10px;
+    padding-top: 75px;
+    padding-bottom: 0;
+    background-color: #1d1d1d !important;
+  }
+
+  .weathercontp{
+    display: none;
+  }
+
+  .weatherfont{
+    font-size: 2.5vw;
+  }
+
+  #nav-menu {
+    position: fixed; 
+    top: 0; 
+    width: 95%;
+    margin: auto !important; 
+
+
+  }
+  .container {  
+
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 45% 45%;
+    gap: 0px 0px;
+    grid-auto-flow: row;
+    grid-template-areas:
+      "wid1 prof prof"
+      "wid2 wid2 wid3";
+
+  }
+  
+  .wid1 { grid-area: wid1; }
+  
+  .prof { grid-area: prof; }
+  
+  .wid2 { grid-area: wid2; }
+  
+  .wid3 { grid-area: wid3; }
+  
+  html, body{
+    height: 100%;
+  }
+
+  .container {
+    padding-top: 20px ;
+    text-align: center;
+    margin: auto;
+    height: 100%;
+  }
+  
+  
+
+}
