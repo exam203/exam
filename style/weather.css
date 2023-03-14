@@ -1,0 +1,17 @@
+
+@media screen and (max-width: 410px) { 
+#map{
+    height: 60vh;
+    width: 90%;
+    margin-left: 5%;
+}
+
+}
+@media screen and (min-width: 410.001px) {
+
+    #map{
+        height: 50%;
+        width: 50%;
+        margin-left: 25%;
+    }
+}

@@ -98,7 +98,7 @@
         
 
     </form>
-    <div id="map" style="height: 50vw; width: 90%; margin-left: 5%;"></div>
+    <div id="map"></div>
     <div id="output"></div>
 
 </body>

@@ -12,6 +12,7 @@ body,p{
       padding-bottom: 35px;
       background-color: #1d1d1d !important;
       min-width: 300px;
+      min-height: 600px;
     }
   
     #nav-menu {
