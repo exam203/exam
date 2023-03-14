@@ -4,6 +4,13 @@
 box-shadow: inset 10px 10px 58px -15px rgba(0,0,0,1);
 }
 
+body,p{
+  font-family: 'Roboto', sans-serif !important;
+  line-height: 0.25vw;
+  
+}
+
+
 
 @media screen and (max-width: 410px) { 
   body{
@@ -16,7 +23,7 @@ box-shadow: inset 10px 10px 58px -15px rgba(0,0,0,1);
     display: none;
   }
   .weatherfont{
-    font-size: 3vw;
+    font-size: 2.5vw;
   }
 
   #nav-menu {
@@ -63,6 +70,10 @@ box-shadow: inset 10px 10px 58px -15px rgba(0,0,0,1);
     padding-top: 75px;
     padding-bottom: 0;
     background-color: #1d1d1d !important;
+    
+  }
+  p{
+    line-height: 5px;
   }
 
   .weathercontp{
@@ -115,4 +126,8 @@ box-shadow: inset 10px 10px 58px -15px rgba(0,0,0,1);
   
   
 
+}
+
+.alerts{
+  line-height: normal !important;
 }

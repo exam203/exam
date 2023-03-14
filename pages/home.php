@@ -94,26 +94,13 @@ else {
 <head>
   <link rel="stylesheet" href="../style/home.css">
   <link rel="stylesheet" href="../style/bootstrap.min.css">
-  <script src="jquery.min.js" type="text/javascript"></script>
+  <script src="../pages/jquery.min.js" type="text/javascript"></script>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Dashboard</title>
 </head>
-<nav class="navbar navbar-light bg-light justify-content-center" id="nav-menu">
-<ul class="nav justify-content-center" >
-  <li class="nav-item" style="padding-left: 5vw; padding-right: 5vw;">
-    <a class="nav-link active"  href="../pages/home.php"><img width="35vw" src="../images/tmp_icon.png"></a>
-  </li>
-  <li class="nav-item" style="padding-left: 5vw; padding-right: 5vw;">
-    <a class="nav-link" href="../pages/weather.php"><img width="35vw" src="../images/tmp_icon.png"></a>
-  </li>
-  <li class="nav-item" style="padding-left: 5vw; padding-right: 5vw;">
-    <a class="nav-link" href="../pages/profile.php"><img width="35vw" src="../images/tmp_icon.png"></a>
-  </li>
-</ul>
-  
-</nav>
+<?php include '../models/nav-model.php'; ?>
 <body>
 
 <div class="container">
@@ -132,9 +119,9 @@ else {
   </span>
   </div>
   <div class="wid1" style="padding: 5px">
-    <span class="badge bg-danger" id="shadow" style=" width: 100%; height: 100%; border-radius: 30px;">
+    <span class="badge bg-danger" id="shadow" style=" width: 100%; height: 100%; border-radius: 30px; line-height: normal !important;">
     <?php
-    echo "<p style='font-size: 3.5vw;'>";
+    echo "<p class='alerts' style='font-size: 3.5vw;'>";
     if ($wind_kph >= 93){
       echo "High winds<br>";
       $alerts = TRUE;
@@ -207,10 +194,10 @@ else {
 
       </div>
     </div>
-    <div class="weathercontp" style="padding-top: 0; font-size: 3.5vw;">
+    <div class="weathercontp" style="padding-top: 0; font-size: 3vw;">
     <?php
         if ($data) {
-          echo '<h1 style="font-size: 10vw;">' . $city . '<img src="' . $icon_url . '"style="width: 10vw; height: 10vw;" alt="' . $condition . '"> </h1> ';
+          echo '<h1 style="font-size: 6vw;">' . $city . '<img src="' . $icon_url . '"style="width: 10vw; height: 10vw;" alt="' . $condition . '"> </h1> ';
           echo '<p>Temp: ' . $temp_c . '°C / ' . $temp_f . '°F</p>';
           echo '<p>Humidity: ' . $humidity . '%</p>';
           echo '<p>Wind: ' . $wind_kph . ' km/h ' . $wind_dir . '</p>';

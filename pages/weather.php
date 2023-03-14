@@ -1,4 +1,13 @@
+<!DOCTYPE html>
+<html lang="en">
 <head>
+  <link rel="stylesheet" href="../style/style.css">
+  <link rel="stylesheet" href="../style/weather.css">
+  <link rel="stylesheet" href="../style/bootstrap.min.css">
+  <script src="../pages/jquery.min.js" type="text/javascript"></script>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Weather Map</title>
   <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCzw43t-84BEsCeymov_vPsks3Z8GEBsmg"></script>
   <script>
@@ -53,7 +62,11 @@
                 var marker = new google.maps.Marker({
                 position: {lat: lat, lng: lng},
                 map: map,
-                visible: false // Hide marker
+                visible: false, // Hide marker
+                closeBoxURL: "",
+                closeBoxMargin: "0px",
+                enableEventPropagation: true,
+                closeButton: false
                 });
                 map.setCenter(marker.getPosition());
                 infoWindow.open(map, marker);
@@ -73,14 +86,20 @@
     }
   </script>
 </head>
+<?php include '../models/nav-model.php'; ?>
 <body onload="initMap()">
-  <div id="map" style="height: 400px; width: 100%;"></div>
-  <form>
-    <label for="location">Enter location:</label>
-    <input type="text" id="location" name="location" required>
-    <button type="submit" id="submit">Submit</button>
+  
+    <form style="padding: 5px;">
+        <div class="form-group" style="padding: 5px;">
+            <label class="col-form-label mt-4" for="inputDefault" style="color: white;">Location</label>
+            <input type="text" class="form-control" placeholder="Enter Location" name="location" id="location" style="border-radius: 5px !important;" required>
+            <button type="submit" id="submit" style="width: 100%; height: 50px; font-size: 15px; margin-top: 10px !important; border-radius: 5px !important;"class="btn btn-dark">GO!</button>
+        </div>
+        
 
-</form>
-<div id="output"></div>
+    </form>
+    <div id="map" style="height: 50vw; width: 90%; margin-left: 5%;"></div>
+    <div id="output"></div>
+
 </body>
 </html>
