@@ -1,17 +1,47 @@
 
-@media screen and (max-width: 410px) { 
-#map{
-    height: 60vh;
-    width: 90%;
-    margin-left: 5%;
-}
-
-}
-@media screen and (min-width: 410.001px) {
-
+@media screen and (max-width: 575px) { 
     #map{
-        height: 50%;
+        height: 30vh;
+        width: 90%;
+        margin-left: 5%;
+    }
+    .forecast-h{
+        display: none;
+    }
+    .form-group{
+        width: 100%;
+    }
+
+
+
+}
+@media screen and (min-width: 575.001px) {
+
+    .forecast-p{
+        display: none;
+      }
+    
+    #map{
+        height: 60vh;
         width: 50%;
         margin-left: 25%;
     }
+    p{
+        line-height: 3vw;
+    }
+    .form-group{
+        width: 50%;
+    }
+
 }
+
+#output{
+    font-size: 3.5vw;
+    font-family: sans-serif;
+    font-weight: bolder;
+}
+
+#forecast{
+    padding: 20px;
+}
+

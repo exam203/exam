@@ -10,11 +10,16 @@
     <title>Login</title>
 </head>
 <?php
+//clear session
+session_start();
+session_unset();
+session_destroy();
+
 // get success message from create.php
 if (isset($_GET['success'])) {
     echo '<div class="alert alert-dismissible alert-success">
     <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-    <strong>Well done! </strong>'.$_GET['succsess']. '
+    <strong>Well done! </strong>'.$_GET['success']. '
   </div>';
 }
 if (isset($_GET['error'])) {

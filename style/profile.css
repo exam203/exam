@@ -1,0 +1,25 @@
+body{
+    font-size: 80%;
+    color: white !important;
+    margin-top: 40px !important;
+}
+
+@media screen and (max-width: 770px) { 
+.horizontal{
+    display: none;
+}
+body{
+    padding-top: 35px !important;
+}
+}
+
+@media screen and (min-width: 770.001px) {
+
+.portrait{
+    display: none;
+}
+body{
+    padding-top: 120px important;
+}
+
+}

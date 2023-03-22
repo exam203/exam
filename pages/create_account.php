@@ -20,7 +20,7 @@ if (isset($_GET['error'])) {
 ?>
 <body>
     <span class="badge bg-info" style=" width: 25%; height: 50px; border-radius: 15px; margin-bottom: 20px;"><p style="font-size: 25px; font-family: sans-serif;">Create Account</p></span><br>
-    <span class="badge bg-light" style=" width: 25%; height: 700px; border-radius: 15px;">
+    <span class="badge bg-light" style=" width: 25%; height: 800px; border-radius: 15px;">
     Enter Information
     <form action="../action/create_action.php" method="post" style="padding-bottom: 10px;">
         <div class="form-group">
@@ -42,6 +42,10 @@ if (isset($_GET['error'])) {
         <div class="form-group">
             <label class="col-form-label mt-4" for="inputDefault">Alergens</label>
             <input type="text" class="form-control" placeholder="Use Commas to Separate Example - 'pollen, cats, dogs, perfume'" name="alergens" id="inputDefault">
+        </div><br>
+        <div class="form-group">
+            <label class="col-form-label mt-4" for="inputDefault">Step Goal</label>
+            <input type="text" class="form-control" placeholder="Enter Your Step Goal" name="goal" id="inputDefault">
         </div><br>
         <button type="submit"  style="width: 100%; height: 50px; margin-top: 20px;"class="btn btn-primary">Submit</button>
         

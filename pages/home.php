@@ -18,7 +18,10 @@ if ($result->num_rows > 0) {
     // output data of each row
     while($row = $result->fetch_assoc()) {
         $location = $row["location"];
+        $_SESSION["location"] = $location;
         $allergens = $row["alergens"];
+        $step_goal = $row["step_goal"];
+        $hc_mode = $row["hc_mode"];
     }
 } else {
     echo "0 results";
@@ -44,7 +47,7 @@ $condition = $data->current->condition->text;
 $icon_url = $data->current->condition->icon;
 
 // User's location (you can replace this with your own location)
-$location2 = "London";
+$location2 = $location;
 
 // API endpoint and parameters
 $url = "http://datapoint.metoffice.gov.uk/public/data/val/wxfcs/all/json/pollenforecast/UK?res=3hourly&key=31819b16-1164-4f3b-9b16-2e9f0cb292ea";
@@ -94,6 +97,8 @@ else {
 <head>
   <link rel="stylesheet" href="../style/home.css">
   <link rel="stylesheet" href="../style/bootstrap.min.css">
+  <?php if($hc_mode == 1){ echo '<link rel="stylesheet" href="../style/hc_mode.css">'; } ?>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta2/css/all.min.css" integrity="sha512-YWzhKL2whUzgiheMoBFwW8CKV4qpHQAEuvilg9FAn5VJUDwKZZxkJNuGM4XkWuk94WCrrwslk8yWNGmY1EduTA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
   <script src="../pages/jquery.min.js" type="text/javascript"></script>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -106,44 +111,42 @@ else {
 <div class="container">
   <div class="prof" style="padding: 5px">
     <span class="badge bg-light" id="shadow" style=" width: 100%; height: 100%; border-radius: 30px;">
-    
-  <button type="button" class="btn btn-dark">settings</button>
-  <?php
-    echo $username;
-    
-  
-  
-  
-    ?>
-  <button type="button" class="btn btn-dark">notifications</button>
+        
+        <?php
+        echo "<h1>". '<a class="pf_wid"  href="settings.php"><img src="../images/settings.png" width="40px"></a>' .ucfirst($username) . '<a class="pf_wid" href="pf_settings.php"><img src="../images/profile_settings.png" width="40px"></a>' . "</h1><br>";
+
+        ?>
+        <p>Location: <?php echo $location; ?><br>Heart Rate (BPM): [ACCSESS DATA FROM SMART DEVICE]<br> Distance (KM): [ACCSESS DATA FROM SMART DEVICE]<br> Heart Rate (BPM): [ACCSESS DATA FROM SMART DEVICE]<br>   </p>
+        
   </span>
   </div>
+
   <div class="wid1" style="padding: 5px">
     <span class="badge bg-danger" id="shadow" style=" width: 100%; height: 100%; border-radius: 30px; line-height: normal !important;">
     <?php
-    echo "<p class='alerts' style='font-size: 3.5vw;'>";
+    echo "<p class='alerts' style='font-size: 4vw;'>";
     if ($wind_kph >= 93){
-      echo "High winds<br>";
+      echo "Check High winds<br>";
       $alerts = TRUE;
     }    
     if ($temp_c >= 30){
-      echo "High temperature<br>";
+      echo "High temperature Check<br>";
       $alerts = TRUE;
     }
     if ($temp_c <= 0){
-      echo "Low temperature<br>";
+      echo "Low temperature Check<br>";
       $alerts = TRUE;
     }
     if ($temp_c <= -2){
-      echo "Snow and Ice<br>";
+      echo "Check Snow and Ice<br>";
       $alerts = TRUE;
     }
     if ($humidity >= 80){
-      echo "High humidity<br>";
+      echo "Check High Humidity<br>";
       $alerts = TRUE;
     }
     if ($humidity <= 20){
-      echo "Low humidity<br>";
+      echo "Check Low humidity<br>";
       $alerts = TRUE;
     }
     //check if pollen in allergen list
@@ -158,8 +161,18 @@ else {
       
     }
     if ($alerts != TRUE){
-        echo "No alerts <br>";
+        echo 'No alerts <br> <div class="btn-group" role="group" aria-label="Basic example">
+        <a href="../pages/advice.php" class="btn btn-danger" style="border-color: white; float: left;  margin-top:10%; font-size: 120%; padding: 10%">Advice</a>
+        </div>';
+        
       }
+    else{
+      echo '</p><p style="font-size: 200%;">Read More: <br>
+      <div class="btn-group" role="group" aria-label="Basic example">
+      <a href="../pages/advice.php" class="btn btn-danger" style="border-color: white; float: left;  margin-top:10%; font-size: 120%; padding: 10%">Advice</a>
+      </div>
+      ';
+    }
 
     
 
@@ -178,30 +191,29 @@ else {
         if ($data) {
           
           
-          echo '<h1 style="font-size: 3.5vw;">Current weather in ' . $city . '</h1>';
-          echo '<p>Temperature: ' . $temp_c . '°C / ' . $temp_f . '°F</p>';
-          echo '<p>Humidity: ' . $humidity . '%</p>';
-          echo '<p>Wind: ' . $wind_kph . ' km/h ' . $wind_dir . '</p>';
-          echo '<p>Condition: ' . $condition . '</p>';
-          echo '<img src="' . $icon_url . '" alt="' . $condition . '">';
+          echo '<h1 style="font-size: 3.5vw;">' . ucfirst($city) . '</h1>';
+          echo '<p>Temperature: ' . $temp_c . '°C / ' . $temp_f . '°F | Humidity: ' . $humidity . '%</p>';
+          echo '<p>Wind: ' . $wind_kph . ' km/h ' . $wind_dir . ' | Condition: ' . $condition . '</p>';
+          echo '';
+          echo '<img src="' . $icon_url . '"style="width: 25%"  alt="' . $condition . '">';
       } else {
           echo 'Error retrieving weather data';
       }
       ?>
       </div>
       <div>
-      <a href="../pages/advice.php?advice=weather" class="btn btn-warning" style="float: left; font-size: 1.5vw;">Advice</a>
+      
 
       </div>
     </div>
     <div class="weathercontp" style="padding-top: 0; font-size: 3vw;">
     <?php
         if ($data) {
-          echo '<h1 style="font-size: 6vw;">' . $city . '<img src="' . $icon_url . '"style="width: 10vw; height: 10vw;" alt="' . $condition . '"> </h1> ';
+          echo '<h1 style="font-size: 6vw;">' . ucfirst($city) . '<img src="' . $icon_url . '"style="width: 10vw; height: 10vw;" alt="' . $condition . '"> </h1> ';
           echo '<p>Temp: ' . $temp_c . '°C / ' . $temp_f . '°F</p>';
           echo '<p>Humidity: ' . $humidity . '%</p>';
           echo '<p>Wind: ' . $wind_kph . ' km/h ' . $wind_dir . '</p>';
-          echo '<p>Condition: ' . $condition . '</p>';
+          echo '<p style="padding-top: 0; font-size: 3.5vw; font-weight: bold;">' . $condition . '</p>';
       } else {
           echo 'Error retrieving weather data';
       }
@@ -211,11 +223,65 @@ else {
   </span>
   </div>
   <div class="wid3" style="padding: 5px">
-    <span class="badge bg-secondary" id="shadow" style=" width: 100%; height: 100%; border-radius: 30px;">Widget 3</span>
+    <span class="badge bg-secondary" id="shadow" style=" width: 100%; height: 100%; border-radius: 30px; line-height: normal !important;">
+  
+    <?php
+
+        //connect to database
+        $servername = "localhost";
+        $server_username = "root";
+        $password = "";
+        $dbname = "health_app";
+        $conn = new mysqli($servername, $server_username, $password, $dbname);
+        $total_steps = 0;
+        $today_steps = 0;
+
+        //check connection
+        if ($conn->connect_error) {
+            die("Connection failed: " . $conn->connect_error);
+        }
+
+
+        //get step count data from database
+        $sql = "SELECT * FROM step_counts WHERE username = '$username'";
+        $result = $conn->query($sql);
+        $line = 0;
+        echo "<h6 style='line-height: normal !important;'> Step Count Data:</h6><p style='line-height: normal !important;'>";
+        while ($row = $result->fetch_assoc()) {
+          $line++;
+          if ($line < 6) {
+              echo $row['step_count'] . " on " . $row['date'] . "<br>";
+          } else if ($line == 6) {
+              echo "... <br>";
+          }
+          
+            $total_steps += $row['step_count'];
+            if ($row['date'] == date("Y-m-d")){
+              $today_steps += $row['step_count'];
+            }
+        }
+        echo "<h3>Steps Today:<br> " . $today_steps . "</h3>";
+        //add a circle to show how many steps they have done today
+        echo "<div class='progress' style='height: 20px; width: 100%;'>
+        <div class='progress-bar' role='progressbar' style='width: " . ($today_steps / $step_goal) * 100 . "%; background-color: #46eb34;' aria-valuenow='" . ($today_steps / 10000) * 100 . "' aria-valuemin='0' aria-valuemax='100'></div>
+      </div>";
+
+
+      echo "<h4>Goal: " . $step_goal . "</h4> <br>";
+    ?>
+  
+  
+  </span>
   </div>
 </div>
 <div class="weathercontp">
-<a href="../pages/advice.php?advice=weather" class="btn btn-warning" style="margin: 25px; float: left; font-size: 4vw;">Advice</a>';
+
 </div>
+
+
+
+
+
+</body>
 </body>
 </html>

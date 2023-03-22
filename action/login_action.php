@@ -29,6 +29,10 @@ if ($result->num_rows > 0) {
         if (password_verify($password, $row["password"])) {
             echo 'Password is valid!';
             $_SESSION['username'] = $username;
+            $_SESSION["user_id"] = $row["id"];
+            $_SESSION["location"] = $row["location"];
+            $_SESSION["alergens"] = $row["alergens"];
+            $_SESSION["step_goal"] = $row["step_goal"];
             header("Location: ../pages/home.php");
         } else {
             echo 'Invalid password.';

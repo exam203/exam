@@ -1,18 +1,19 @@
+/*
 #shadow{
   -webkit-box-shadow: inset 10px 10px 58px -15px rgba(0,0,0,1);
 -moz-box-shadow: inset 10px 10px 58px -15px rgba(0,0,0,1);
 box-shadow: inset 10px 10px 58px -15px rgba(0,0,0,1);
-}
+}*/
 
 body,p{
   font-family: 'Roboto', sans-serif !important;
-  line-height: 0.25vw;
+  line-height: 1.25vw;
   
 }
 
 
 
-@media screen and (max-width: 410px) { 
+@media screen and (max-width: 995px) { 
   body{
     padding-top: 5px;
     padding-bottom: 35px;
@@ -24,6 +25,11 @@ body,p{
   }
   .weatherfont{
     font-size: 2.5vw;
+  }
+    @media screen and (min-width: 570px) { 
+    .alerts{
+      font-size: 180% !important;
+    }
   }
 
   #nav-menu {
@@ -59,11 +65,15 @@ body,p{
     margin: 0;
     text-align: center;
   }
+  .alerts{
+    line-height: normal !important;
+    font-size: 100% !important;
+  }
 
 
 }
 
-@media screen and (min-width: 410.001px) {
+@media screen and (min-width: 995.001px) {
 
   body{
     padding : 0;
@@ -73,15 +83,22 @@ body,p{
     
   }
   p{
-    line-height: 5px;
+    
   }
 
   .weathercontp{
     display: none;
   }
 
-  .weatherfont{
-    font-size: 2.5vw;
+  .weatherconth{
+    font-size: 220% !important;
+    line-height: 1.5vw;
+    
+  }
+  @media screen and (min-width: 1700px) {
+    .weatherconth {
+       font-size: 45px;
+    }
   }
 
   #nav-menu {
@@ -123,11 +140,17 @@ body,p{
     margin: auto;
     height: 100%;
   }
+  .alerts{
+    line-height: normal !important;
+    font-size: 350% !important;
+  }
   
   
 
 }
 
-.alerts{
-  line-height: normal !important;
+.pf_wid{
+  margin-left: 40px !important;
+  margin-right: 40px !important;
 }
+

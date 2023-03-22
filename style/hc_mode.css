@@ -1,0 +1,52 @@
+body{
+    --bs-primary-rgb: 0,0,0;
+    --bs-secondary-rgb: 0,0,0;
+    --bs-success-rgb: 0,0,0;
+    --bs-info-rgb: 0,0,0;
+    --bs-warning-rgb: 0,0,0;
+    --bs-danger-rgb: 0,0,0;
+    --bs-light-rgb: 0,0,0;
+    --bs-dark-rgb: 0,0,0 ;
+
+
+}
+
+.btn-primary{
+    --bs-btn-bg: black !important;
+    --bs-btn-border-color: white !important;
+    --bs-btn-hover-color: black !important;
+    --bs-btn-hover-bg: white !important;
+    --bs-btn-hover-border-color: black !important;
+}
+
+.btn-danger {
+    --bs-btn-color: #fff !important;
+    --bs-btn-bg: black !important;
+    --bs-btn-border-color: white !important;
+    --bs-btn-hover-color: black !important;
+    --bs-btn-hover-bg: white !important;
+}
+
+.btn-warning {
+    --bs-btn-color: #fff !important;
+    --bs-btn-bg: black !important;
+    --bs-btn-border-color: white !important;
+    --bs-btn-hover-color: black !important;
+    --bs-btn-hover-bg: white !important;
+}
+
+.btn-dark {
+    --bs-btn-color: #fff !important;
+    --bs-btn-bg: black !important;
+    --bs-btn-border-color: white !important;
+    --bs-btn-hover-color: black !important;
+    --bs-btn-hover-bg: white !important;
+}
+span{
+
+    border: 5px solid white !important;
+}
+
+.card{
+    border: 5px solid white !important;
+}

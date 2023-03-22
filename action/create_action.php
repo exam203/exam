@@ -18,6 +18,7 @@ $password = $_POST['password'];
 $password_con = $_POST['password_con'];
 $location = $_POST['location'];
 $alergens = $_POST['alergens'];
+$goal = $_POST['goal'];
 
 echo $username . "<br>";
 //check if username is taken
@@ -36,6 +37,9 @@ if(mysqli_num_rows($result)>0){
     if ($location == ""){
         $location = "None";
     }
+    if ($goal == ""){
+        $goal = 10000;
+    }
     if ($password != $password_con){
         header("Location: ../pages/create_account.php?error=Passwords do not match");
     }
@@ -51,8 +55,8 @@ if(mysqli_num_rows($result)>0){
         }
 
         //add data
-        $sql = $conn->prepare("INSERT INTO user_login (username, password, location, alergens) VALUES (?, ?, ?, ?)");
-        $sql->bind_param("ssss", $username, $hashed_password, $location, $alergens);
+        $sql = $conn->prepare("INSERT INTO user_login (username, password, location, alergens, step_goal) VALUES (?, ?, ?, ?, ?)");
+        $sql->bind_param("sssss", $username, $hashed_password, $location, $alergens, $goal);
         $sql->execute();
 
       
