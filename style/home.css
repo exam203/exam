@@ -7,7 +7,7 @@ box-shadow: inset 10px 10px 58px -15px rgba(0,0,0,1);
 
 body,p{
   font-family: 'Roboto', sans-serif !important;
-  line-height: 1.25vw;
+
   
 }
 
@@ -68,6 +68,10 @@ body,p{
   .alerts{
     line-height: normal !important;
     font-size: 100% !important;
+  }
+  .pf_data{
+    font-size: 100%;
+    line-height: 210%;
   }
 
 
@@ -144,13 +148,17 @@ body,p{
     line-height: normal !important;
     font-size: 350% !important;
   }
-  
+  .pf_data{
+    font-size: 150%;
+    line-height: 210%;
+  }
   
 
 }
 
 .pf_wid{
-  margin-left: 40px !important;
-  margin-right: 40px !important;
+  margin-left: 20px !important;
+  margin-right: 20px !important;
 }
+
 

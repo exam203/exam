@@ -1,15 +1,20 @@
 <?php
 session_start();
+
 if (!isset($_SESSION['username'])){
     header("Location: ../pages/login.php");
 }
 $username = $_SESSION['username'];
+$user_id = $_SESSION['user_id'];
+$hc_mode = $_SESSION['hc_mode'];
+$allergens = $_SESSION['alergens'];
 //connect to database
 $servername = "localhost";
 $server_username = "root";
 $password = "";
 $dbname = "health_app";
 $conn = new mysqli($servername, $server_username, $password, $dbname);
+$hc_img = "";
 
 //get users location
 $sql = "SELECT * FROM user_login WHERE username = '$username'";
@@ -97,7 +102,7 @@ else {
 <head>
   <link rel="stylesheet" href="../style/home.css">
   <link rel="stylesheet" href="../style/bootstrap.min.css">
-  <?php if($hc_mode == 1){ echo '<link rel="stylesheet" href="../style/hc_mode.css">'; } ?>
+  <?php if($hc_mode == 1){ echo '<link rel="stylesheet" href="../style/hc_mode.css">'; $hc_img = "_hc";} ?>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta2/css/all.min.css" integrity="sha512-YWzhKL2whUzgiheMoBFwW8CKV4qpHQAEuvilg9FAn5VJUDwKZZxkJNuGM4XkWuk94WCrrwslk8yWNGmY1EduTA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
   <script src="../pages/jquery.min.js" type="text/javascript"></script>
   <meta charset="UTF-8">
@@ -113,10 +118,10 @@ else {
     <span class="badge bg-light" id="shadow" style=" width: 100%; height: 100%; border-radius: 30px;">
         
         <?php
-        echo "<h1>". '<a class="pf_wid"  href="settings.php"><img src="../images/settings.png" width="40px"></a>' .ucfirst($username) . '<a class="pf_wid" href="pf_settings.php"><img src="../images/profile_settings.png" width="40px"></a>' . "</h1><br>";
+        echo "<h1 style='font-size:20px'>". '<a class="pf_wid"  href="settings.php"><img src="'. "../images/settings".$hc_img.".png" . '" width="40px"></a>' .ucfirst($username) . '<a class="pf_wid" href="pf_settings.php"><img src="'. "../images/profile_settings".$hc_img.".png" . '" width="40px"></a>' . "</h1><br>";
 
         ?>
-        <p>Location: <?php echo $location; ?><br>Heart Rate (BPM): [ACCSESS DATA FROM SMART DEVICE]<br> Distance (KM): [ACCSESS DATA FROM SMART DEVICE]<br> Heart Rate (BPM): [ACCSESS DATA FROM SMART DEVICE]<br>   </p>
+        <p class="pf_data">Location: <?php echo $location; ?><br>Heart Rate (BPM): [GET FROM SMART DEVICE]<br> Distance (KM): [GET FROM SMART DEVICE]<br> Allergens: <?=$allergens?>   </p>
         
   </span>
   </div>

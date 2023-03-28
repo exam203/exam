@@ -4,3 +4,25 @@ body{
     padding-bottom: 0;
     background-color: #1d1d1d !important;
 }
+
+
+@media screen and (max-width: 995px) {
+    #login-box{
+        width: 85%; height: 400px; border-radius: 15px;
+    }
+    #cr-box{
+        width: 85%; height: 880px; border-radius: 15px;
+    }
+}
+
+@media screen and (min-width: 995.001px) {
+    #login-box{
+        width: 50%; height: 520px; border-radius: 15px; font-size: large; line-height: 20px;
+    }
+    #cr-box{
+        width: 50%; height: 1000px; border-radius: 15px; font-size: large; line-height: 20px;
+    }
+    .btn{
+        margin-top: 50px;
+    }
+}

@@ -75,7 +75,7 @@ if (isset($_POST["submit"])){
     <link rel="stylesheet" href="../style/settings.css">
     <?php if($hc_mode == 1){ echo '<link rel="stylesheet" href="../style/hc_mode.css">'; } ?>
     <link rel="stylesheet" href="../style/bootstrap.min.css">
-    <title>Profile Settings</title>
+    <title>Settings</title>
 </head>
 <body>
     <?php include '../models/nav-model.php';?>
@@ -94,7 +94,7 @@ if (isset($_GET['error'])){
 ?>
 
     <div class="form-group">
-    <label class="form-label mt-4">User Settings</label>
+    <label class="form-label mt-4">Settings</label>
     <div class="form-floating mb-3">
         <input type="text" class="form-control" id="floatingInput" name="step_goal" value="<?=$step_goal?>">
         <label for="floatingInput">Step Goal</label>

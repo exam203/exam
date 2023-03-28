@@ -33,6 +33,7 @@ if ($result->num_rows > 0) {
             $_SESSION["location"] = $row["location"];
             $_SESSION["alergens"] = $row["alergens"];
             $_SESSION["step_goal"] = $row["step_goal"];
+            $_SESSION["hc_mode"] = $row["hc_mode"];
             header("Location: ../pages/home.php");
         } else {
             echo 'Invalid password.';

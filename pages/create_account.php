@@ -19,8 +19,10 @@ if (isset($_GET['error'])) {
 }
 ?>
 <body>
-    <span class="badge bg-info" style=" width: 25%; height: 50px; border-radius: 15px; margin-bottom: 20px;"><p style="font-size: 25px; font-family: sans-serif;">Create Account</p></span><br>
-    <span class="badge bg-light" style=" width: 25%; height: 800px; border-radius: 15px;">
+<center>
+    
+    <span class="badge bg-light" id="cr-box">
+    <h1 style="font-family: sans-serif;">Create Account</h1>
     Enter Information
     <form action="../action/create_action.php" method="post" style="padding-bottom: 10px;">
         <div class="form-group">
@@ -52,6 +54,7 @@ if (isset($_GET['error'])) {
     </form>
     <p style="font-family: sans-serif;">Returning User? <a href="Login.php" style="font-family: sans-serif;">Login</a></p>
     </span>
-    
+   
+</center> 
 </body>
 </html>
